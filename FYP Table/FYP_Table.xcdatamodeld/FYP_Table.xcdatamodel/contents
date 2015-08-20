@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14F27" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="BarVariables" representedClassName="BarModel" syncable="YES">
+        <attribute name="area" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="arrowChecked" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="force" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="globalChecked" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="length" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="youngMod" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+    </entity>
+    <entity name="SpringVariables" representedClassName="SpringModel" syncable="YES">
+        <attribute name="arrowChecked" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="force" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="globalChecked" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="stiffness" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BarVariables" positionX="-54" positionY="18" width="128" height="135"/>
+        <element name="SpringVariables" positionX="-54" positionY="-9" width="128" height="105"/>
+    </elements>
+</model>
