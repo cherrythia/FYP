@@ -10,26 +10,30 @@
 	<string>FYP Table</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>0B23B799F2A3962C3A1298A29706070B4AC2CF95</key>
+		<string>https://github.com/cherrythia/FYP.git</string>
 		<key>74F87D882F192BE3C369626702D5EF9BFBFB008E</key>
 		<string>https://github.com/cherrythia/XcodeProtocolTutorial.git</string>
 		<key>CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD</key>
 		<string>github.com:cherrythia/FYP.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>FYP V14.0/FYP Table.xcodeproj</string>
+	<string>FYP Table.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>0B23B799F2A3962C3A1298A29706070B4AC2CF95</key>
+		<string>../..</string>
 		<key>74F87D882F192BE3C369626702D5EF9BFBFB008E</key>
-		<string>../../../..</string>
+		<string>../../..</string>
 		<key>CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>github.com:cherrythia/FYP.git</string>
+	<string>https://github.com/cherrythia/FYP.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD</string>
+	<string>0B23B799F2A3962C3A1298A29706070B4AC2CF95</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -46,7 +50,15 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD</string>
 			<key>IDESourceControlWCCName</key>
-			<string>FYP</string>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0B23B799F2A3962C3A1298A29706070B4AC2CF95</string>
+			<key>IDESourceControlWCCName</key>
+			<string>FYP%20V14.0</string>
 		</dict>
 	</array>
 </dict>

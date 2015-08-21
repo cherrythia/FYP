@@ -32,10 +32,16 @@ class SpringInsertVariables : UIViewController {
     var tempCount : Int = 0
     var tempChcekedGlobal : Bool = false
     var tempArrow : Bool = false
+    var tempCanCheckCheckedBox : Bool = false
 
     override func viewDidLoad() {
         
-        isCheckedGlobal = tempChcekedGlobal
+        if(tempMangObj != nil && tempCanCheckCheckedBox == false){
+            checkBoxOutlet.enabled = false
+        }
+        else{
+            checkBoxOutlet.enabled = true
+        }
         
         leftNode.text = "Node \(tempCount)"
         rightNode.text = "Node \(tempCount + 1)"
@@ -121,43 +127,51 @@ class SpringInsertVariables : UIViewController {
     
     @IBAction func submit(sender: AnyObject) {
         
-        //NSCoreData
-        //Reference to App Delegate
-        let appDel : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        //Reference moc
-        let contxt : NSManagedObjectContext = appDel.managedObjectContext!
-        let en = NSEntityDescription.entityForName("SpringVariables", inManagedObjectContext: contxt)
-        
-        if(tempMangObj != nil){
-            
-            tempMangObj.setValue(NSString(string: forceEntered.text).floatValue, forKey: "force")
-            tempMangObj.setValue(NSString(string: stiffnessEntered.text).floatValue, forKey: "stiffness")
-            tempMangObj.setValue((Bool: isCheckedGlobal), forKey: "globalChecked")                          //isCheckedGloabl will not be nil because newItem will handle it.
-            tempMangObj.setValue((Bool: ArrowGlobal), forKey: "arrowChecked")
+        if(forceEntered.text == "" || stiffnessEntered.text == ""){
+            let emptyTextAlert = UIAlertController(title: "TextField is empty", message: "Please input value(s)", preferredStyle: .Alert)
+            let okButton = UIAlertAction(title: "Ok", style: .Default , handler: nil)
+            emptyTextAlert.addAction(okButton)
+            presentViewController(emptyTextAlert, animated: true, completion: nil)
         }
-        
-        else {
-            //newItem created
-            var newItem = SpringModel(entity:en!,insertIntoManagedObjectContext: contxt)
+        else  {
             
-            newItem.stiffness = NSString(string: stiffnessEntered.text).floatValue
-            newItem.arrowChecked = ArrowGlobal
-            newItem.globalChecked = isCheckedGlobal
+            //NSCoreData
+            //Reference to App Delegate
+            let appDel : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            //Reference moc
+            let contxt : NSManagedObjectContext = appDel.managedObjectContext!
+            let en = NSEntityDescription.entityForName("SpringVariables", inManagedObjectContext: contxt)
             
-            if(isCheckedGlobal == true)
-            {
-                newItem.force = 0
+            if(tempMangObj != nil){
+                
+                tempMangObj.setValue(NSString(string: forceEntered.text).floatValue, forKey: "force")
+                tempMangObj.setValue(NSString(string: stiffnessEntered.text).floatValue, forKey: "stiffness")
+                tempMangObj.setValue((Bool: isCheckedGlobal), forKey: "globalChecked")                          //isCheckedGloabl will not be nil because newItem will handle it.
+                tempMangObj.setValue((Bool: ArrowGlobal), forKey: "arrowChecked")
             }
-            else{
-                newItem.force = NSString(string: forceEntered.text).floatValue
+                
+            else {
+                //newItem created
+                var newItem = SpringModel(entity:en!,insertIntoManagedObjectContext: contxt)
+                
+                newItem.stiffness = NSString(string: stiffnessEntered.text).floatValue
+                newItem.arrowChecked = ArrowGlobal
+                newItem.globalChecked = isCheckedGlobal
+                
+                if(isCheckedGlobal == true)
+                {
+                    newItem.force = 0
+                }
+                else{
+                    newItem.force = NSString(string: forceEntered.text).floatValue
+                }
+                println(newItem)
             }
-            println(newItem)
+            
+            //Save our context
+            contxt.save(nil)
+            navigationController?.popViewControllerAnimated(true)
         }
-        
-        //Save our context
-        contxt.save(nil)
-   
-        dismissViewControllerAnimated(true, completion: nil)
     }
     
 }

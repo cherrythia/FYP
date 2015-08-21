@@ -203,6 +203,15 @@ class SpringViewController_Table : UITableViewController, UITableViewDataSource 
             insertSpringVar.tempChcekedGlobal = globalChecked
             insertSpringVar.tempCount = self.tableView.indexPathForSelectedRow()!.row
             insertSpringVar.tempArrow = arrowChecked
+            
+            if(self.tableView.indexPathForSelectedRow()!.row != (springVar.count-1)){
+                var tempCanCheckCheckedBox : Bool = false
+                insertSpringVar.tempCanCheckCheckedBox = tempCanCheckCheckedBox
+            }
+            else{
+                var tempCanCheckCheckedBox : Bool = true
+                insertSpringVar.tempCanCheckCheckedBox = tempCanCheckCheckedBox
+            }
         }
         
         //add button
@@ -213,14 +222,6 @@ class SpringViewController_Table : UITableViewController, UITableViewDataSource 
             insertSpringVar.tempCount = springVar.count
         }
         
-    }
-    
-    @IBAction func unwindSpringInserttoTable (segue: UIStoryboardSegue){
-        self.tableView.reloadData()
-        
-        if(isCheckedGlobal == true) {
-            addButton.enabled = false
-        }
     }
 
 }

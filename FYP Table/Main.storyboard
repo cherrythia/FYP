@@ -134,11 +134,34 @@
                             </items>
                         </toolbar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="barCell" id="jGb-SE-Srl">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="barCell" textLabel="rZN-nB-pVt" detailTextLabel="GQh-MD-Tra" style="IBUITableViewCellStyleSubtitle" id="jGb-SE-Srl">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jGb-SE-Srl" id="e7z-1l-MNp">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rZN-nB-pVt">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            </variation>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GQh-MD-Tra">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="gch-TI-7Ct" kind="show" identifier="detail" id="yR7-Pm-heh"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                     </tableView>
@@ -147,7 +170,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Add" id="iPb-bI-K39">
                             <connections>
                                 <action selector="addBar:" destination="yWW-sG-URx" id="ird-zp-8S8"/>
-                                <segue destination="gch-TI-7Ct" kind="presentation" identifier="addBar" id="FZl-hM-jN8"/>
+                                <segue destination="gch-TI-7Ct" kind="show" identifier="addBar" id="FZl-hM-jN8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -285,6 +308,7 @@
                         <outlet property="forceEntered" destination="w4T-Aw-lh0" id="ALE-Ma-vwg"/>
                         <outlet property="forceLabel" destination="7Jq-ec-kVa" id="b3d-rM-h1I"/>
                         <outlet property="image" destination="AjV-qB-Tb8" id="0fT-ov-Fyr"/>
+                        <outlet property="isCheckedOutlet" destination="Td4-1H-Zpa" id="qP7-Zs-ea1"/>
                         <outlet property="leftLabel" destination="onA-xN-Bes" id="qDG-ag-N3U"/>
                         <outlet property="lengthEntered" destination="EdL-7K-rSE" id="mhE-E8-bVE"/>
                         <outlet property="lengthLabel" destination="6V4-hn-5S4" id="AtF-7z-OTL"/>
@@ -296,7 +320,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4RT-aq-Jc4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="1dY-Wc-vQg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1420.5" y="2378.2499999999995"/>
+            <point key="canvasLocation" x="1384.5" y="2373"/>
         </scene>
         <!--Bar Displacement-->
         <scene sceneID="TWE-Cu-1vd">
@@ -596,6 +620,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="svJ-2w-5lb"/>
                     <connections>
                         <outlet property="Image" destination="hg7-DX-iaT" id="yWT-X5-yZk"/>
                         <outlet property="arrowOutlet" destination="0RR-kf-fqL" id="1UB-fL-4a6"/>
@@ -637,6 +662,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="A18-4P-urw"/>
+        <segue reference="Qm8-YZ-gLh"/>
+        <segue reference="FZl-hM-jN8"/>
     </inferredMetricsTieBreakers>
 </document>

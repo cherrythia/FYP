@@ -27,6 +27,7 @@ class BarInsertVariables: UIViewController {
     @IBOutlet weak var modulusEntered: UITextField!
     @IBOutlet weak var areaLabel: UILabel!
     @IBOutlet weak var areaEntered: UITextField!
+    @IBOutlet weak var isCheckedOutlet: CheckBox2!
     
     var tempForce : Float = 0.0
     var tempArea : Float = 0.0
@@ -36,8 +37,17 @@ class BarInsertVariables: UIViewController {
     var tempCheckedGlobal : Bool = false
     var tempArrow : Bool = false
     var tempMangObj : NSManagedObject!
+    var tempCanCheckCheckedBox : Bool = false
     
     override func viewDidLoad() {
+        
+        //disable the checkedbox function when user clicks on the detail view
+        if(tempMangObj != nil && tempCanCheckCheckedBox == false){
+            isCheckedOutlet.enabled = false
+        }
+        else{
+            isCheckedOutlet.enabled = true
+        }
         
         leftLabel.text = "Node \(tempCount)"
         rightLabel.text = "Node \(tempCount + 1)"
@@ -72,9 +82,9 @@ class BarInsertVariables: UIViewController {
         if(tempMangObj != nil)
         {
             forceEntered.text = "\(tempForce)N"
-            areaEntered.text = "\(tempArea)m"
-            lengthEntered.text = "\(tempLength)"
-            modulusEntered.text = "\(tempMod)"
+            areaEntered.text = "\(tempArea)m^2"
+            lengthEntered.text = "\(tempLength)m"
+            modulusEntered.text = "\(tempMod)N/m^2"
         }
     }
     
@@ -109,7 +119,7 @@ class BarInsertVariables: UIViewController {
         if(ArrowGlobal == true) {
             ArrowGlobal = false
             var tempForceConversion = (forceEntered.text as NSString).floatValue
-            forceEntered.text = "-\(abs(tempForceConversion))"
+            forceEntered.text = "\(abs(tempForceConversion))"
         }
         
         else{
@@ -132,7 +142,7 @@ class BarInsertVariables: UIViewController {
             tempMangObj.setValue(NSString(string: forceEntered.text).floatValue, forKey: "force")
             tempMangObj.setValue(NSString(string: areaEntered.text).floatValue, forKey: "area")
             tempMangObj.setValue(NSString(string: lengthEntered.text).floatValue, forKey: "length")
-            tempMangObj.setValue(NSString(string: modulusEntered.text).floatValue, forKey: "youndMod")
+            tempMangObj.setValue(NSString(string: modulusEntered.text).floatValue, forKey: "youngMod")
             
             tempMangObj.setValue((Bool: isCheckedGlobal), forKey: "globalChecked")
             tempMangObj.setValue((Bool: ArrowGlobal), forKey: "arrowChecked")
@@ -156,9 +166,8 @@ class BarInsertVariables: UIViewController {
         
         //save our context
         context.save(nil)
-        self.dismissViewControllerAnimated(true, completion: nil)
-                
+        self.navigationController?.popViewControllerAnimated(true)
+        
     }
-    
     
 }

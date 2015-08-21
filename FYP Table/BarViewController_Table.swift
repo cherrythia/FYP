@@ -77,7 +77,7 @@ class BarViewController_Table: UITableViewController, UITableViewDelegate,UITabl
     }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerHeight : CGFloat = (tableView.frame.size.height - (CGFloat(barVar.count) * 45.0) -  44.0 - 0.0 ) //check value if is okay, because SpringViewController - 64.0
+        let footerHeight : CGFloat = (tableView.frame.size.height - (CGFloat(barVar.count) * 45.0) -  44.0 - 0.0 - 64.0) //check value if is okay, because SpringViewController - 64.0
         
         let footerCell = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: footerHeight))
         /********************************** View of footerCell edit here***********************************/
@@ -86,7 +86,7 @@ class BarViewController_Table: UITableViewController, UITableViewDelegate,UITabl
     
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
        
-         let footerHeight : CGFloat = (tableView.frame.size.height - (CGFloat(barVar.count) * 45.0) -  44.0 - 0.0 ) //check value if is okay, because SpringViewController - 64.0
+         let footerHeight : CGFloat = (tableView.frame.size.height - (CGFloat(barVar.count) * 45.0) -  44.0 - 0.0 - 64.0 ) //check value if is okay, because SpringViewController - 64.0
         
         return footerHeight
     }
@@ -122,9 +122,9 @@ class BarViewController_Table: UITableViewController, UITableViewDelegate,UITabl
         var length : Float = data.valueForKey("length") as! Float
         var youngMod : Float = data.valueForKey("youngMod") as! Float
         
-        cell!.detailTextLabel!.text = "Force = \(force)N \t area =\(area) Length =\(length) Young Mod =\(youngMod)"
+        cell!.detailTextLabel!.text = "Force = \(force)\tArea =\(area)\tLength =\(length)\tYoung Mod =\(youngMod)"
         cell!.detailTextLabel!.textColor = UIColor .darkGrayColor()
-        cell!.detailTextLabel!.font = UIFont.systemFontOfSize(8)
+        cell!.detailTextLabel!.font = UIFont.systemFontOfSize(9)
         
         cell!.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
@@ -142,12 +142,17 @@ class BarViewController_Table: UITableViewController, UITableViewDelegate,UITabl
             var tempForce : Float = selectedItem.valueForKey("force") as! Float
             var tempArea : Float = selectedItem.valueForKey("area") as! Float
             var tempLength : Float = selectedItem.valueForKey("length") as! Float
-            var tempMod : Float = selectedItem.valueForKey("youndMod") as! Float
+            var tempMod : Float = selectedItem.valueForKey("youngMod") as! Float
             
             forceBarArray.append(tempForce)
             areaArray.append(tempArea)
             lengthArray.append(tempLength)
             youngModArray.append(tempMod)
+            
+            print(forceBarArray)
+            print(areaArray)
+            print(lengthArray)
+            print(youngModArray)
         }
         
         for index in 0 ... (barVar.count){              //Negative Value for forceAtWall here
@@ -157,12 +162,10 @@ class BarViewController_Table: UITableViewController, UITableViewDelegate,UITabl
     }
     
     @IBAction func addBar(sender: AnyObject) {
-        
         self.performSegueWithIdentifier("addBar", sender: sender)
     }
 
     @IBAction func solve_PressedBar(sender: AnyObject) {
-        self.arrayPrepareForCalculation()
         self.performSegueWithIdentifier("SolveBar", sender: sender)
     }
     
@@ -176,13 +179,8 @@ class BarViewController_Table: UITableViewController, UITableViewDelegate,UITabl
         
         if (segue.identifier == "SolveBar") {
             
+            arrayPrepareForCalculation()
             let segueToBarResults = segue.destinationViewController as! BarViewController_Results
-            
-            var selectedItem : NSManagedObject = barVar[self.tableView.indexPathForSelectedRow()!.row] as! NSManagedObject
-            var tempForce : Float = selectedItem.valueForKey("force") as! Float
-            var tempArea : Float = selectedItem.valueForKey("area") as! Float
-            var tempLength : Float = selectedItem.valueForKey("length") as! Float
-            var tempMod : Float = selectedItem.valueForKey("youndMod") as! Float
             
             segueToBarResults.forceBarWall2 = forceBarArray
             segueToBarResults.length2 = lengthArray
@@ -198,7 +196,7 @@ class BarViewController_Table: UITableViewController, UITableViewDelegate,UITabl
             var tempForce : Float = selectedItem.valueForKey("force") as! Float
             var tempArea : Float = selectedItem.valueForKey("area") as! Float
             var tempLength : Float = selectedItem.valueForKey("length") as! Float
-            var tempMod : Float = selectedItem.valueForKey("youndMod") as! Float
+            var tempMod : Float = selectedItem.valueForKey("youngMod") as! Float
             
             insertBarVarViewController.tempForce = tempForce
             insertBarVarViewController.tempArea = tempArea
@@ -206,15 +204,18 @@ class BarViewController_Table: UITableViewController, UITableViewDelegate,UITabl
             insertBarVarViewController.tempMod = tempMod
             insertBarVarViewController.tempCount = self.tableView.indexPathForSelectedRow()!.row
             insertBarVarViewController.tempMangObj = selectedItem
+            
+            if(self.tableView.indexPathForSelectedRow()!.row != (barVar.count - 1)){
+                var tempCanCheckCheckedBox : Bool = false
+                insertBarVarViewController.tempCanCheckCheckedBox = tempCanCheckCheckedBox
+            }
+            else{
+                var tempCanCheckCheckedBox : Bool = true
+                insertBarVarViewController.tempCanCheckCheckedBox = tempCanCheckCheckedBox
+            }
         }
             
-        }
     }
-    
-//     func unwindBarInsertTOBarTable (Segue: UIStoryboardSegue){
-//        
-//        if(isCheckedGlobal == true){
-//            addBarButton.enabled=false
-//        }
-//    }
+}
+
 
