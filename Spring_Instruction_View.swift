@@ -20,4 +20,14 @@ class Spring_Instruction_View: UIViewController {
         springSeriesImage.image = springSeries
     }
     
+    // MARK: Fade-in Animation Method
+    override func viewWillAppear(animated: Bool) {
+        springInstructions.alpha = 0.0
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        UIView.animateWithDuration(2.0, delay: 0.2, options: .CurveEaseOut, animations: {
+            self.springInstructions.alpha = 1
+            }, completion: nil)
+    }
 }
