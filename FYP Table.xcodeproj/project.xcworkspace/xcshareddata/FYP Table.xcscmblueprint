@@ -1,0 +1,58 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0B23B799F2A3962C3A1298A29706070B4AC2CF95+++13FD2EB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD+++2E41CDE" : 0,
+    "74F87D882F192BE3C369626702D5EF9BFBFB008E+++7B5D545" : 0,
+    "74F87D882F192BE3C369626702D5EF9BFBFB008E+++EC2D2C9" : 0,
+    "CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD+++56F110B" : 0,
+    "0B23B799F2A3962C3A1298A29706070B4AC2CF95+++13FD2EB" : 0,
+    "CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD+++2F2FCF4" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7C74D451-4CBC-49E2-9B96-1EEBE55A0D70",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD+++2E41CDE" : "",
+    "74F87D882F192BE3C369626702D5EF9BFBFB008E+++7B5D545" : "",
+    "74F87D882F192BE3C369626702D5EF9BFBFB008E+++EC2D2C9" : "..",
+    "CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD+++56F110B" : "",
+    "0B23B799F2A3962C3A1298A29706070B4AC2CF95+++13FD2EB" : "FYP%20V14.0",
+    "CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD+++2F2FCF4" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FYP Table",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FYP Table.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/cherrythia\/FYP.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0B23B799F2A3962C3A1298A29706070B4AC2CF95+++13FD2EB"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/cherrythia\/XcodeProtocolTutorial.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "74F87D882F192BE3C369626702D5EF9BFBFB008E+++7B5D545"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/cherrythia\/QRCode-Scanner.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "74F87D882F192BE3C369626702D5EF9BFBFB008E+++EC2D2C9"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:cherrythia\/FYP.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD+++2E41CDE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:cherrythia\/FYP.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD+++2F2FCF4"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:cherrythia\/FYP.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "CDE46FD5372160B76013D9B7FC9D8B60AFE9BCBD+++56F110B"
+    }
+  ]
+}
