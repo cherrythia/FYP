@@ -9,15 +9,15 @@ import UIKit
 public func spring_calculate (f:[Float], s:[Float], n:NSInteger) -> [Float]  {
     
     var Ans = [Float] (count: n+1, repeatedValue: 0.0)
-    var A  = Array3D(zs: n+1, ys: n+1, xs: n+2)
-    var B = Array3D(zs: n+1, ys: n+1 , xs: n+2)
+    let A  = Array3D(zs: n+1, ys: n+1, xs: n+2)
+    let B = Array3D(zs: n+1, ys: n+1 , xs: n+2)
     var C = [Float] (count: n+1, repeatedValue: 0.0)
-    var D = Array2d(rows: n+1, columns: 1)
+    let D = Array2d(rows: n+1, columns: 1)
     var fwall : Float = 0.0
     
-    println("\nForces in the array are")
+    print("\nForces in the array are", terminator: "")
     for rows in 0..<(n+1) {
-        println(f[rows])
+        print(f[rows], terminator: "")
     }
     
     //Displament matrix
@@ -94,13 +94,13 @@ public func spring_calculate (f:[Float], s:[Float], n:NSInteger) -> [Float]  {
             }
     
         //Print Global Matrix
-        println("\nGobal Matrix is")
+        print("\nGobal Matrix is", terminator: "")
         
         for y in 0..<(n+1) {
             for x in 0..<(n+2) {
-                print(String (format: "%.3f\t", B[0,y,x]))
+                print(String (format: "%.3f\t", B[0,y,x]), terminator: "")
             }
-            print("\n")
+            print("\n", terminator: "")
         }
     
         //Multiplying my displacement matrix into the Gloabl Matrix
@@ -111,18 +111,18 @@ public func spring_calculate (f:[Float], s:[Float], n:NSInteger) -> [Float]  {
         }
     }
     
-    println("\nGlobal Matrix after multiplication with Displacements")
+    print("\nGlobal Matrix after multiplication with Displacements")
     
     //Print Global Matrix W Displacement
     for y in 0..<(n+1) {
         for x in 0..<(n+2)   {
-            print(String(format: "%.3f\t", B[0,y,x]))
+            print(String(format: "%.3f\t", B[0,y,x]), terminator: "")
             
         }
-        print("\n")
+        print("\n", terminator: "")
     }
     
-    print("\n\n")
+    print("\n\n", terminator: "")
     
         //Computation to solve
         for x in 1...(n) {
@@ -137,17 +137,17 @@ public func spring_calculate (f:[Float], s:[Float], n:NSInteger) -> [Float]  {
             }
         }
     
-    println("After computation using Gauss Jordan Method")
+    print("After computation using Gauss Jordan Method")
     
     //Try printing the solution after computation
     for y in 0..<(n+1) {
         for x in 0..<(n+2) {
-            print(String(format: "%.3f\t" , B[0,y,x]))
+            print(String(format: "%.3f\t" , B[0,y,x]), terminator: "")
         }
-        print("\n")
+        print("\n", terminator: "")
     }
     
-        println("\nThe Solution is ")
+        print("\nThe Solution is ")
     
         for y in 0...(n) {
             
@@ -156,7 +156,7 @@ public func spring_calculate (f:[Float], s:[Float], n:NSInteger) -> [Float]  {
             else {
                 
             Ans[y]=B[0,y,(n+1)]/B[0,y,y] }
-            println(String(format: "%.5f", Ans[y]))
+            print(String(format: "%.5f", Ans[y]))
         }
 
     return Ans

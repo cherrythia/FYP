@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpringViewController_Results : UITableViewController , UITableViewDelegate, UITableViewDataSource {
+class SpringViewController_Results : UITableViewController  {
 
     @IBOutlet var tableview2: UITableView!
     var forceView2 = [Float]()
@@ -18,75 +18,36 @@ class SpringViewController_Results : UITableViewController , UITableViewDelegate
     var SpringD : [Float] = []
     var springCount : Int = 0
     
-    //shake function
-    override func canBecomeFirstResponder() -> Bool {
-        return true
-    }
-    
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
-        if(event.subtype == UIEventSubtype.MotionShake){
-            println("Shaken")
-            
-           self.performSegueWithIdentifier("reset", sender: self)
-            
-            springCount = 0
-            isCheckedGlobal = false
-            
-        }
-    }
-  
-    // MARK: - Table view data source
-    
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return SpringD.count    }
-    
-    override func tableView(tableView: UITableView,
-        cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            
-            let cell = tableView.dequeueReusableCellWithIdentifier("cell",
-                forIndexPath: indexPath) as! UITableViewCell
-            
-            let item = SpringD[indexPath.row]
-            
-            cell.textLabel?.text = "Displacement at node \(indexPath.row ) = \(item.description)"
-            
-            return cell
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if(isCheckedGlobal) {
             
-            (forceB1,forceB2,SpringD) = Spring_CalculateBoundary(&forceView2, stiffView2, springCount)
+            (forceB1,forceB2,SpringD) = Spring_CalculateBoundary(&forceView2, s: stiffView2, n: springCount)
             
             // Alert view
             
             let alert = UIAlertController(title: "Boundary Force", message: "Force at left wall is \(forceB1) (N) \nForce at right wall is \(forceB2) (N)", preferredStyle: .Alert)
             
-            let okAction = UIAlertAction(title: "OK", style: .Default) {(ACTION: UIAlertAction!) -> Void in}
+            let okAction = UIAlertAction(title: "OK", style: .Default) {(ACTION: UIAlertAction) -> Void in}
             
             alert.addAction(okAction)
             
             presentViewController(alert, animated: true, completion: nil)
         }
             
-        else {  println(forceView2)
-                println(stiffView2)
-                println(springCount)
+        else {  print(forceView2)
+            print(stiffView2)
+            print(springCount)
             
-            SpringD = spring_calculate(forceView2, stiffView2, springCount)
+            SpringD = spring_calculate(forceView2, s: stiffView2, n: springCount)
             self.forceB1  = forceView2[0]
             self.forceB2 = forceView2[springCount - 1]
             
             let alert = UIAlertController(title: "Boundary Force", message: "Force at left wall is \(forceB1) (N)", preferredStyle: .Alert)
             
-            let okAction = UIAlertAction(title: "OK", style: .Default) {(ACTION: UIAlertAction!) -> Void in}
+            let okAction = UIAlertAction(title: "OK", style: .Default) {(ACTION: UIAlertAction) -> Void in}
             
             alert.addAction(okAction)
             
@@ -99,11 +60,50 @@ class SpringViewController_Results : UITableViewController , UITableViewDelegate
         
     }
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
-        // Dispose of any resources that can be recreated.
     }
-
+    
+    //MARK: Shake
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        if(event!.subtype == UIEventSubtype.MotionShake){
+            print("Shaken")
+            
+           self.performSegueWithIdentifier("reset", sender: self)
+            
+            springCount = 0
+            isCheckedGlobal = false
+            
+        }
+    }
+  
+    // MARK:  Table view data source
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return SpringD.count
+    }
+    
+    override func tableView(tableView: UITableView,
+        cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("cell",
+                forIndexPath: indexPath) 
+            
+            let item = SpringD[indexPath.row]
+            
+            cell.textLabel?.text = "Displacement at node \(indexPath.row ) = \(item.description)"
+            
+            return cell
+    }
+    
 }

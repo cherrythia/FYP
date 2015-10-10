@@ -20,7 +20,7 @@ class CheckBox2: UIButton {
     
     func buttonClicked(sender:UIButton) {
         
-        println(isCheckedGlobal)
+        print(isCheckedGlobal, terminator: "")
         
         if (isCheckedGlobal == true) {
             self.setImage(checkedImage, forState: .Normal)

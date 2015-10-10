@@ -88,7 +88,7 @@ class BarInsertVariables: UIViewController {
         }
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
     
@@ -107,7 +107,7 @@ class BarInsertVariables: UIViewController {
             
             //Warming for the first bar element
             let first_bar_alert = UIAlertController(title: "First bar must be inputted here", message: "First bar must always be attached on the left war here", preferredStyle: .Alert)
-            let cancelAction = UIAlertAction(title: "OK", style: .Default) {(ACTION: UIAlertAction!) -> Void in}
+            let cancelAction = UIAlertAction(title: "OK", style: .Default) {(ACTION: UIAlertAction) -> Void in}
             first_bar_alert.addAction(cancelAction)
             presentViewController(first_bar_alert, animated: true, completion: nil)
         }
@@ -118,7 +118,7 @@ class BarInsertVariables: UIViewController {
         
         if(ArrowGlobal == true) {
             ArrowGlobal = false
-            var tempForceConversion = (forceEntered.text as NSString).floatValue
+            let tempForceConversion = (forceEntered.text! as NSString).floatValue
             forceEntered.text = "\(abs(tempForceConversion))"
         }
         
@@ -139,10 +139,10 @@ class BarInsertVariables: UIViewController {
         
         if(tempMangObj != nil) {       //save changes here
             
-            tempMangObj.setValue(NSString(string: forceEntered.text).floatValue, forKey: "force")
-            tempMangObj.setValue(NSString(string: areaEntered.text).floatValue, forKey: "area")
-            tempMangObj.setValue(NSString(string: lengthEntered.text).floatValue, forKey: "length")
-            tempMangObj.setValue(NSString(string: modulusEntered.text).floatValue, forKey: "youngMod")
+            tempMangObj.setValue(NSString(string: forceEntered.text!).floatValue, forKey: "force")
+            tempMangObj.setValue(NSString(string: areaEntered.text!).floatValue, forKey: "area")
+            tempMangObj.setValue(NSString(string: lengthEntered.text!).floatValue, forKey: "length")
+            tempMangObj.setValue(NSString(string: modulusEntered.text!).floatValue, forKey: "youngMod")
             
             tempMangObj.setValue((Bool: isCheckedGlobal), forKey: "globalChecked")
             tempMangObj.setValue((Bool: ArrowGlobal), forKey: "arrowChecked")
@@ -150,22 +150,25 @@ class BarInsertVariables: UIViewController {
         }
         else {                       //create new item here
             
-            var newItem = BarModel(entity:en!,insertIntoManagedObjectContext: context)
-            newItem.area = NSString(string: areaEntered.text).floatValue
-            newItem.length = NSString(string: lengthEntered.text).floatValue
-            newItem.youngMod = NSString(string: modulusEntered.text).floatValue
+            let newItem = BarModel(entity:en!,insertIntoManagedObjectContext: context)
+            newItem.area = NSString(string: areaEntered.text!).floatValue
+            newItem.length = NSString(string: lengthEntered.text!).floatValue
+            newItem.youngMod = NSString(string: modulusEntered.text!).floatValue
             
             if(isCheckedGlobal == true){
                 newItem.force = 0
             }
             else{
-                newItem.force = NSString(string: forceEntered.text).floatValue
+                newItem.force = NSString(string: forceEntered.text!).floatValue
             }
-            println(newItem)
+            print(newItem)
         }
         
-        //save our context
-        context.save(nil)
+        do {
+            //save our context
+            try context.save()
+        } catch _ {
+        }
         self.navigationController?.popViewControllerAnimated(true)
         
     }

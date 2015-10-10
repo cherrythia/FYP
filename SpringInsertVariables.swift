@@ -83,11 +83,11 @@ class SpringInsertVariables : UIViewController {
         
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
  
-
+    //MARK: CheckBox
     @IBAction func checkboxed(sender: AnyObject) {
         
             if(tempCount != 0) {
@@ -104,19 +104,19 @@ class SpringInsertVariables : UIViewController {
             
             else{   //warning Alert
                     let first_spring_alert = UIAlertController(title: "First spring must be inputted", message: "First spring musts always be attached on the left wall", preferredStyle: .Alert)
-                    let cancelAction = UIAlertAction(title: "OK", style: .Default) {(ACTION: UIAlertAction!) -> Void in}
+                    let cancelAction = UIAlertAction(title: "OK", style: .Default) {(ACTION: UIAlertAction) -> Void in}
                     first_spring_alert.addAction(cancelAction)
                     presentViewController(first_spring_alert, animated: true, completion: nil)
                 }
             
             self.viewDidLoad()
     }
-    
+    //MARK: ARROW
     @IBAction func arrow(sender: AnyObject) {
         
         if(ArrowGlobal == true) {
             ArrowGlobal = false
-            var tempForceConversion = (forceEntered.text as NSString).floatValue
+            let tempForceConversion = (forceEntered.text! as NSString).floatValue
             forceEntered.text = "\(abs(tempForceConversion))"
         }
         else {
@@ -125,6 +125,7 @@ class SpringInsertVariables : UIViewController {
         }
     }
     
+    //MARK: Submit
     @IBAction func submit(sender: AnyObject) {
         
         if(forceEntered.text == "" || stiffnessEntered.text == ""){
@@ -144,17 +145,17 @@ class SpringInsertVariables : UIViewController {
             
             if(tempMangObj != nil){
                 
-                tempMangObj.setValue(NSString(string: forceEntered.text).floatValue, forKey: "force")
-                tempMangObj.setValue(NSString(string: stiffnessEntered.text).floatValue, forKey: "stiffness")
+                tempMangObj.setValue(NSString(string: forceEntered.text!).floatValue, forKey: "force")
+                tempMangObj.setValue(NSString(string: stiffnessEntered.text!).floatValue, forKey: "stiffness")
                 tempMangObj.setValue((Bool: isCheckedGlobal), forKey: "globalChecked")                          //isCheckedGloabl will not be nil because newItem will handle it.
                 tempMangObj.setValue((Bool: ArrowGlobal), forKey: "arrowChecked")
             }
                 
             else {
                 //newItem created
-                var newItem = SpringModel(entity:en!,insertIntoManagedObjectContext: contxt)
+                let newItem = SpringModel(entity:en!,insertIntoManagedObjectContext: contxt)
                 
-                newItem.stiffness = NSString(string: stiffnessEntered.text).floatValue
+                newItem.stiffness = NSString(string: stiffnessEntered.text!).floatValue
                 newItem.arrowChecked = ArrowGlobal
                 newItem.globalChecked = isCheckedGlobal
                 
@@ -163,13 +164,16 @@ class SpringInsertVariables : UIViewController {
                     newItem.force = 0
                 }
                 else{
-                    newItem.force = NSString(string: forceEntered.text).floatValue
+                    newItem.force = NSString(string: forceEntered.text!).floatValue
                 }
-                println(newItem)
+                print(newItem)
             }
             
-            //Save our context
-            contxt.save(nil)
+            do {
+                //Save our context
+                try contxt.save()
+            } catch _ {
+            }
             navigationController?.popViewControllerAnimated(true)
         }
     }

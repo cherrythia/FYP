@@ -33,7 +33,7 @@ class ForceArrow: UIButton {
     
     func arrowbuttonClicked(sender: UIButton) {
         
-        println(ArrowGlobal)
+        print(ArrowGlobal)
         
         if(ArrowGlobal == true) {
             self.setImage(leftArrowImage, forState: .Normal)

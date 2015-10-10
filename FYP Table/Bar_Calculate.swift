@@ -11,10 +11,10 @@ public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSIntege
     
     var barDisplacement = [Float] (count: n+1, repeatedValue: 0.0)
     
-    var A = Array3D(zs: n+1, ys: n+1, xs: n+2)
-    var B = Array3D(zs: n+1, ys: n+1, xs: n+2)
+    let A = Array3D(zs: n+1, ys: n+1, xs: n+2)
+    let B = Array3D(zs: n+1, ys: n+1, xs: n+2)
     var C = [Float] (count: n+1, repeatedValue: 0.0)
-    var D = Array2d(rows: n+1, columns: 1)
+    let D = Array2d(rows: n+1, columns: 1)
     var fwall : Float   =   0.0
    
     
@@ -22,10 +22,10 @@ public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSIntege
     var Kb = [Float] (count: n, repeatedValue: 0.0)
     
 
-    println("My Kb Values are")
+    print("My Kb Values are")
     for rows in 0..<n {
         Kb[rows] = d[rows] * e[rows] / l[rows]     //d represents area here
-        println("\(Float(Kb[rows]))")
+        print("\(Float(Kb[rows]))")
     }
  
         
@@ -34,9 +34,9 @@ public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSIntege
         for columns in 0..<1 {
             if(rows==0) { D[rows,columns] = 0 }
             else { D[rows,columns] = 1 }
-            print("\(Float(D[rows,0]))")
+            print("\(Float(D[rows,0]))", terminator: "")
         }
-        print("\n")
+        print("\n", terminator: "")
     }
     
     //Arrangement of matrices
@@ -98,13 +98,13 @@ public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSIntege
     }
     
     //Print Global Matrix
-    println("\nGobal Matrix is")
+    print("\nGobal Matrix is")
     
     for y in 0..<(n+1) {
         for x in 0..<(n+2) {
-            print(String (format: "%.3f\t", B[0,y,x]))
+            print(String (format: "%.3f\t", B[0,y,x]), terminator: "")
         }
-        print("\n")
+        print("\n", terminator: "")
     }
     
     //Multiplying my displacement matrix into the Gloabl Matrix
@@ -115,18 +115,18 @@ public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSIntege
         }
     }
     
-    println("\nGlobal Matrix after multiplication with Displacements")
+    print("\nGlobal Matrix after multiplication with Displacements")
     
     //Print Global Matrix W Displacement
     for y in 0..<(n+1) {
         for x in 0..<(n+2)   {
-            print(String(format: "%.3f\t", B[0,y,x]))
+            print(String(format: "%.3f\t", B[0,y,x]), terminator: "")
             
         }
-        print("\n")
+        print("\n", terminator: "")
     }
     
-    print("\n\n")
+    print("\n\n", terminator: "")
     
     
     //Computation to solve
@@ -142,17 +142,17 @@ public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSIntege
         }
     }
     
-    println("After computation using Gauss Jordan Method")
+    print("After computation using Gauss Jordan Method")
     
     //Try printing the solution after computation
     for y in 0..<(n+1) {
         for x in 0..<(n+2) {
-            print(String(format: "%.3f\t" , B[0,y,x]))
+            print(String(format: "%.3f\t" , B[0,y,x]), terminator: "")
         }
-        print("\n")
+        print("\n", terminator: "")
     }
     
-    println("\nThe Solution is ")
+    print("\nThe Solution is ")
     
     for y in 0...(n) {
         
@@ -161,7 +161,7 @@ public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSIntege
         else {
             
             barDisplacement[y]=B[0,y,(n+1)]/B[0,y,y] }
-        println(String(format: "%.5f", barDisplacement[y]))
+        print(String(format: "%.5f", barDisplacement[y]))
     }
     
     return barDisplacement
