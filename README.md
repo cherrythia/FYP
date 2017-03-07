@@ -1,6 +1,5 @@
 # FYP
 FYP projects on FEM solver
 
-- Bar and Spring Elements 
-
-- Anyone can use it. 
+- Spring and bar elements.
+- With or without bound at the end. 
