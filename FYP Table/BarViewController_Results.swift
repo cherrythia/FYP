@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BarViewController_Results: UITableViewController, UITableViewDelegate, UITableViewDataSource {
+class BarViewController_Results: UITableViewController {
 
     var forceBarWall2 = [Float]()
     var length2 = [Float]()
@@ -19,13 +19,13 @@ class BarViewController_Results: UITableViewController, UITableViewDelegate, UIT
     var barD : [Float] = []
     var barCount : Int = 0
     
-    override func canBecomeFirstResponder() -> Bool {
+    override var canBecomeFirstResponder : Bool {
         return true
     }
     
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
-        if(event.subtype == UIEventSubtype.MotionShake){
-            self.performSegueWithIdentifier("reset", sender: self)
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if(event?.subtype == UIEventSubtype.motionShake){
+            self.performSegue(withIdentifier: "reset", sender: self)
             
             barCount = 0
             isCheckedGlobal = false
@@ -35,43 +35,43 @@ class BarViewController_Results: UITableViewController, UITableViewDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        println("BarViewController2")
-        println(self.length2)
-        println(self.youngMod2)
-        println(self.diamter2)
-        println(self.forceBarWall2)
+        print("BarViewController2")
+        print(self.length2)
+        print(self.youngMod2)
+        print(self.diamter2)
+        print(self.forceBarWall2)
         
         if(isCheckedGlobal && barCount != 0) {
-            (forceB1, forceB2, barD) =  Bar_Calculate_Boundary(&forceBarWall2, length2, youngMod2, diamter2, barCount)
+            (forceB1, forceB2, barD) =  Bar_Calculate_Boundary(&forceBarWall2, l: length2, e: youngMod2, d: diamter2, n: barCount)
             
-            let alert = UIAlertController(title: "Boundary Force", message: "Force at left wall is \(forceB1) (N) \nForce at right wall is \(forceB2) (N)", preferredStyle: .Alert)
+            let alert = UIAlertController(title: "Boundary Force", message: "Force at left wall is \(forceB1) (N) \nForce at right wall is \(forceB2) (N)", preferredStyle: .alert)
             
-            let cancelAction = UIAlertAction(title: "OK", style: .Default) {(ACTION: UIAlertAction!) -> Void in}
+            let cancelAction = UIAlertAction(title: "OK", style: .default) {(ACTION: UIAlertAction!) -> Void in}
             
             alert.addAction(cancelAction)
             
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
         
         else {
             
-            println("BarViewController2")
-            println(self.length2)
-            println(self.youngMod2)
-            println(self.diamter2)
-            println(self.forceBarWall2)
+            print("BarViewController2")
+            print(self.length2)
+            print(self.youngMod2)
+            print(self.diamter2)
+            print(self.forceBarWall2)
 
-            barD = Bar_Calculate(forceBarWall2, length2, youngMod2, diamter2, barCount)
+            barD = Bar_Calculate(forceBarWall2, l: length2, e: youngMod2, d: diamter2, n: barCount)
             self.forceB1 = forceBarWall2[0]
             self.forceB2 = forceBarWall2[barCount-1]
             
-            let alert = UIAlertController(title: "Boundary Force", message: "Force at left wall is \(forceB1) (N)", preferredStyle: .Alert)
+            let alert = UIAlertController(title: "Boundary Force", message: "Force at left wall is \(forceB1) (N)", preferredStyle: .alert)
             
-            let cancelAction = UIAlertAction(title: "OK", style: .Default) {(ACTION: UIAlertAction!) -> Void in}
+            let cancelAction = UIAlertAction(title: "OK", style: .default) {(ACTION: UIAlertAction!) -> Void in}
             
             alert.addAction(cancelAction)
             
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
             
         }
         
@@ -85,17 +85,17 @@ class BarViewController_Results: UITableViewController, UITableViewDelegate, UIT
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return barD.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("barCell", forIndexPath: indexPath) as! UITableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "barCell", for: indexPath) 
         let item = barD[indexPath.row]
         cell.textLabel?.text = "Displacement at node \(indexPath.row) = \(item.description)"
         

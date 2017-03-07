@@ -17,29 +17,29 @@ class ForceArrow: UIButton {
     
     override func awakeFromNib() {
         
-        self.addTarget(self, action: "arrowbuttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addTarget(self, action: #selector(ForceArrow.arrowbuttonClicked(_:)), for: UIControlEvents.touchUpInside)
         
         if(ArrowGlobal == false)
         {
-         setImage(rightArrowImage, forState: .Normal)
+         setImage(rightArrowImage, for: UIControlState())
         }
         else
         {
-            setImage(leftArrowImage, forState: .Normal)
+            setImage(leftArrowImage, for: UIControlState())
         }
         
 //        ArrowGlobal = false
     }
     
-    func arrowbuttonClicked(sender: UIButton) {
+    func arrowbuttonClicked(_ sender: UIButton) {
         
-        println(ArrowGlobal)
+        print(ArrowGlobal)
         
         if(ArrowGlobal == true) {
-            self.setImage(leftArrowImage, forState: .Normal)
+            self.setImage(leftArrowImage, for: UIControlState())
         }
         else{
-            self.setImage(rightArrowImage, forState: .Normal)
+            self.setImage(rightArrowImage, for: UIControlState())
         }
     }
 }

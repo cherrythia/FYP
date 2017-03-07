@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpringViewController_Results : UITableViewController , UITableViewDelegate, UITableViewDataSource {
+class SpringViewController_Results : UITableViewController {
 
     @IBOutlet var tableview2: UITableView!
     var forceView2 = [Float]()
@@ -19,15 +19,15 @@ class SpringViewController_Results : UITableViewController , UITableViewDelegate
     var springCount : Int = 0
     
     //shake function
-    override func canBecomeFirstResponder() -> Bool {
+    override var canBecomeFirstResponder : Bool {
         return true
     }
     
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
-        if(event.subtype == UIEventSubtype.MotionShake){
-            println("Shaken")
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if(event?.subtype == UIEventSubtype.motionShake){
+            print("Shaken")
             
-           self.performSegueWithIdentifier("reset", sender: self)
+           self.performSegue(withIdentifier: "reset", sender: self)
             
             springCount = 0
             isCheckedGlobal = false
@@ -37,19 +37,19 @@ class SpringViewController_Results : UITableViewController , UITableViewDelegate
   
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return SpringD.count    }
     
-    override func tableView(tableView: UITableView,
-        cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("cell",
-                forIndexPath: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell",
+                for: indexPath) 
             
             let item = SpringD[indexPath.row]
             
@@ -63,39 +63,39 @@ class SpringViewController_Results : UITableViewController , UITableViewDelegate
 
         if(isCheckedGlobal) {
             
-            (forceB1,forceB2,SpringD) = Spring_CalculateBoundary(&forceView2, stiffView2, springCount)
+            (forceB1,forceB2,SpringD) = Spring_CalculateBoundary(&forceView2, s: stiffView2, n: springCount)
             
             // Alert view
             
-            let alert = UIAlertController(title: "Boundary Force", message: "Force at left wall is \(forceB1) (N) \nForce at right wall is \(forceB2) (N)", preferredStyle: .Alert)
+            let alert = UIAlertController(title: "Boundary Force", message: "Force at left wall is \(forceB1) (N) \nForce at right wall is \(forceB2) (N)", preferredStyle: .alert)
             
-            let okAction = UIAlertAction(title: "OK", style: .Default) {(ACTION: UIAlertAction!) -> Void in}
+            let okAction = UIAlertAction(title: "OK", style: .default) {(ACTION: UIAlertAction!) -> Void in}
             
             alert.addAction(okAction)
             
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
             
-        else {  println(forceView2)
-                println(stiffView2)
-                println(springCount)
+        else {  print(forceView2)
+                print(stiffView2)
+                print(springCount)
             
-            SpringD = spring_calculate(forceView2, stiffView2, springCount)
+            SpringD = spring_calculate(forceView2, s: stiffView2, n: springCount)
             self.forceB1  = forceView2[0]
             self.forceB2 = forceView2[springCount - 1]
             
-            let alert = UIAlertController(title: "Boundary Force", message: "Force at left wall is \(forceB1) (N)", preferredStyle: .Alert)
+            let alert = UIAlertController(title: "Boundary Force", message: "Force at left wall is \(forceB1) (N)", preferredStyle: .alert)
             
-            let okAction = UIAlertAction(title: "OK", style: .Default) {(ACTION: UIAlertAction!) -> Void in}
+            let okAction = UIAlertAction(title: "OK", style: .default) {(ACTION: UIAlertAction!) -> Void in}
             
             alert.addAction(okAction)
             
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
         
         tableview2.dataSource = self
         tableview2.delegate = self
-        tableview2.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableview2.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
     }
     

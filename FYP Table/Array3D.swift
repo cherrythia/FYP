@@ -18,7 +18,7 @@ class Array3D {
         self.zs = zs
         self.ys = ys
         self.xs = xs
-        matrix = Array(count:zs*ys*xs, repeatedValue:0)
+        matrix = Array(repeating: 0, count: zs*ys*xs)
     }
     
     subscript(z:Int, y:Int, x:Int) -> Float

@@ -7,25 +7,25 @@
 
 import UIKit
 
-public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSInteger) -> [Float] {
+public func Bar_Calculate(_ f:[Float], l:[Float], e:[Float], d:[Float], n:NSInteger) -> [Float] {
     
-    var barDisplacement = [Float] (count: n+1, repeatedValue: 0.0)
+    var barDisplacement = [Float] (repeating: 0.0, count: n+1)
     
     var A = Array3D(zs: n+1, ys: n+1, xs: n+2)
     var B = Array3D(zs: n+1, ys: n+1, xs: n+2)
-    var C = [Float] (count: n+1, repeatedValue: 0.0)
+    var C = [Float] (repeating: 0.0, count: n+1)
     var D = Array2d(rows: n+1, columns: 1)
     var fwall : Float   =   0.0
    
     
     //Deducing each individual Kb
-    var Kb = [Float] (count: n, repeatedValue: 0.0)
+    var Kb = [Float] (repeating: 0.0, count: n)
     
 
-    println("My Kb Values are")
+    print("My Kb Values are")
     for rows in 0..<n {
         Kb[rows] = d[rows] * e[rows] / l[rows]     //d represents area here
-        println("\(Float(Kb[rows]))")
+        print("\(Float(Kb[rows]))")
     }
  
         
@@ -98,7 +98,7 @@ public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSIntege
     }
     
     //Print Global Matrix
-    println("\nGobal Matrix is")
+    print("\nGobal Matrix is")
     
     for y in 0..<(n+1) {
         for x in 0..<(n+2) {
@@ -115,7 +115,7 @@ public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSIntege
         }
     }
     
-    println("\nGlobal Matrix after multiplication with Displacements")
+    print("\nGlobal Matrix after multiplication with Displacements")
     
     //Print Global Matrix W Displacement
     for y in 0..<(n+1) {
@@ -142,7 +142,7 @@ public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSIntege
         }
     }
     
-    println("After computation using Gauss Jordan Method")
+    print("After computation using Gauss Jordan Method")
     
     //Try printing the solution after computation
     for y in 0..<(n+1) {
@@ -152,7 +152,7 @@ public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSIntege
         print("\n")
     }
     
-    println("\nThe Solution is ")
+    print("\nThe Solution is ")
     
     for y in 0...(n) {
         
@@ -161,7 +161,7 @@ public func Bar_Calculate(f:[Float], l:[Float], e:[Float], d:[Float], n:NSIntege
         else {
             
             barDisplacement[y]=B[0,y,(n+1)]/B[0,y,y] }
-        println(String(format: "%.5f", barDisplacement[y]))
+        print(String(format: "%.5f", barDisplacement[y]))
     }
     
     return barDisplacement

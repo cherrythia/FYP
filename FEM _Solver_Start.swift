@@ -21,7 +21,7 @@ class FEM__Solver_Start: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func unwindResetSpring(segue: UIStoryboardSegue){
+    @IBAction func unwindResetSpring(_ segue: UIStoryboardSegue){
         
     }
     

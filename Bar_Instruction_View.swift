@@ -14,7 +14,7 @@ class Bar_Instruction_View: UIViewController {
     
     @IBOutlet weak var barSeries: UIImageView!
     @IBOutlet weak var barInstructions: UILabel!
-    @IBAction func barCalculate(sender: AnyObject) { }
+    @IBAction func barCalculate(_ sender: AnyObject) { }
         
          override func viewDidLoad() {
             

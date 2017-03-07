@@ -14,19 +14,19 @@ class Spring_Instruction_View: UIViewController {
     
     @IBOutlet weak var springSeriesImage: UIImageView!
     @IBOutlet weak var springInstructions: UILabel!
-    @IBAction func calculateSpring(sender: AnyObject) {}
+    @IBAction func calculateSpring(_ sender: AnyObject) {}
     
     override func viewDidLoad() {
         springSeriesImage.image = springSeries
     }
     
     // MARK: Fade-in Animation Method
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         springInstructions.alpha = 0.0
     }
     
-    override func viewDidAppear(animated: Bool) {
-        UIView.animateWithDuration(2.0, delay: 0.2, options: .CurveEaseOut, animations: {
+    override func viewDidAppear(_ animated: Bool) {
+        UIView.animate(withDuration: 2.0, delay: 0.2, options: .curveEaseOut, animations: {
             self.springInstructions.alpha = 1
             }, completion: nil)
     }

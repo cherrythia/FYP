@@ -14,19 +14,19 @@ class CheckBox2: UIButton {
    
     
     override func awakeFromNib() {
-        self.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
-        setImage(unCheckedImage, forState: .Normal)
+        self.addTarget(self, action: #selector(CheckBox2.buttonClicked(_:)), for: UIControlEvents.touchUpInside)
+        setImage(unCheckedImage, for: UIControlState())
     }
     
-    func buttonClicked(sender:UIButton) {
+    func buttonClicked(_ sender:UIButton) {
         
-        println(isCheckedGlobal)
+        print(isCheckedGlobal)
         
         if (isCheckedGlobal == true) {
-            self.setImage(checkedImage, forState: .Normal)
+            self.setImage(checkedImage, for: UIControlState())
         }
         else{
-            self.setImage(unCheckedImage, forState: .Normal)
+            self.setImage(unCheckedImage, for: UIControlState())
         }
     }
 }

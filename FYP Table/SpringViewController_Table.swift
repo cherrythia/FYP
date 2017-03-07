@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class SpringViewController_Table : UITableViewController, UITableViewDataSource {
+class SpringViewController_Table : UITableViewController {
 
     @IBOutlet weak var addButton: UIBarButtonItem!
     var springVar : Array <AnyObject> = []
@@ -16,38 +16,38 @@ class SpringViewController_Table : UITableViewController, UITableViewDataSource 
     var stiffness : [Float] = []
     
     // MARK: UITableViewDataSource
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func canBecomeFirstResponder() -> Bool {
+    override var canBecomeFirstResponder : Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return springVar.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellIdentifier = "Cell"
         
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as? UITableViewCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
         
-        cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
+        cell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "cell")
         
         var data : NSManagedObject = springVar[indexPath.row] as! NSManagedObject
         
         cell!.textLabel!.text = "Spring \(indexPath.row + 1)"
-        cell!.textLabel!.font = UIFont.boldSystemFontOfSize(17)
+        cell!.textLabel!.font = UIFont.boldSystemFont(ofSize: 17)
         
-        var force : Float = data.valueForKey("force") as! Float
-        var stiffness : Float = data.valueForKey("stiffness") as! Float
+        var force : Float = data.value(forKey: "force") as! Float
+        var stiffness : Float = data.value(forKey: "stiffness") as! Float
         
         cell!.detailTextLabel!.text = "Force = \(force)N \t\t Stiffness = \(stiffness)N/m"
-        cell!.detailTextLabel!.textColor = UIColor .darkGrayColor()
+        cell!.detailTextLabel!.textColor = UIColor .darkGray
         
-        cell!.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        cell!.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         
         return cell!
     }
@@ -57,10 +57,11 @@ class SpringViewController_Table : UITableViewController, UITableViewDataSource 
         
         forceArray.append(0)
         
-        for (var index = 0; index < springVar.count ; ++index )//arrange force to array
-        {
-            var selectedItem : NSManagedObject = springVar[index] as! NSManagedObject       //first index is 1 not zero
-            var tempForce : Float = selectedItem.valueForKey("force") as! Float
+        //arrange force to array
+        
+        for index in 0..<springVar.count {
+            let selectedItem : NSManagedObject = springVar[index] as! NSManagedObject       //first index is 1 not zero
+            let tempForce : Float = selectedItem.value(forKey: "force") as! Float
             
             forceArray.append(tempForce)
         }
@@ -75,10 +76,10 @@ class SpringViewController_Table : UITableViewController, UITableViewDataSource 
     
     func arrayOfStiff() {
         
-        for var index = 0 ; index < springVar.count ; ++index
+        for index in 0..<springVar.count
         {
-            var selectedItem : NSManagedObject = springVar[index] as! NSManagedObject
-            var tempStiffness : Float = selectedItem.valueForKey("stiffness") as! Float
+            let selectedItem : NSManagedObject = springVar[index] as! NSManagedObject
+            let tempStiffness : Float = selectedItem.value(forKey: "stiffness") as! Float
             
             stiffness.append(tempStiffness)
         }
@@ -89,19 +90,24 @@ class SpringViewController_Table : UITableViewController, UITableViewDataSource 
         
         super.viewDidLoad()
         title = "Springs' Variables "
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
     }
     
-    override func viewDidAppear(animated: Bool) {
-        let appDel : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    override func viewDidAppear(_ animated: Bool) {
+        let appDel : AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let context : NSManagedObjectContext = appDel.managedObjectContext!
-        let freq = NSFetchRequest(entityName: "SpringVariables")
+        let freq = NSFetchRequest<NSFetchRequestResult>(entityName: "SpringVariables")
         
-        springVar = context.executeFetchRequest(freq, error: nil)!
+        do {
+            try springVar = context.fetch(freq)
+        } catch  {
+            
+        }
+        //springVar = context.executeFetchRequest(freq)!
         
         if(isCheckedGlobal == true){
-            addButton.enabled = false
+            addButton.isEnabled = false
         }
         tableView.reloadData()
     }
@@ -111,47 +117,49 @@ class SpringViewController_Table : UITableViewController, UITableViewDataSource 
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func Add(sender: AnyObject) {
-        self.performSegueWithIdentifier("addSpring", sender: sender)
+    @IBAction func Add(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "addSpring", sender: sender)
     }
     
-    @IBAction func solve_Pressed(sender: AnyObject) {
+    @IBAction func solve_Pressed(_ sender: AnyObject) {
         
         self.forceAtWall()
         self.arrayOfStiff()
-        self.performSegueWithIdentifier("Solve", sender: sender)
+        self.performSegue(withIdentifier: "Solve", sender: sender)
     }
     
     //Shake to reset
-    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         
-        if(event.subtype == UIEventSubtype.MotionShake){
+        if(event?.subtype == UIEventSubtype.motionShake){
 
-            let appDel : AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let appDel : AppDelegate = UIApplication.shared.delegate as! AppDelegate
             let context : NSManagedObjectContext = appDel.managedObjectContext!
             
             var error : NSError?
             for object in springVar as! [NSManagedObject] {
-                    context.deleteObject(object)
+                    context.delete(object)
             }
             
-            if !context.save(&error){
+            do {
+                try context.save()
+            } catch {
                 print("save failed : \(error)")
             }
             
-            springVar.removeAll(keepCapacity: true)
+            springVar.removeAll(keepingCapacity: true)
             isCheckedGlobal = false
-            addButton.enabled = true
+            addButton.isEnabled = true
             self.tableView.reloadData()
             self.viewDidLoad()
         }
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
         let footerHeight : CGFloat = (tableView.frame.size.height - (CGFloat(springVar.count) * 45.0) - 45.0 - 64.0)
         
@@ -162,22 +170,22 @@ class SpringViewController_Table : UITableViewController, UITableViewDataSource 
         return oneCell
     }
     
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         
         let footerHeight : CGFloat = (tableView.frame.size.height - (CGFloat(springVar.count) * 45.0) - 45.0 - 64.0)
 
         return footerHeight
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("detail", sender:self)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "detail", sender:self)
     }
     
-    override func prepareForSegue ( segue: UIStoryboardSegue, sender: AnyObject!) {
+    override func prepare ( for segue: UIStoryboardSegue, sender: Any!) {
         
         //solve button
         if (segue.identifier == "Solve") {
-            var svcViewController_Results = segue.destinationViewController as! SpringViewController_Results
+            let svcViewController_Results = segue.destination as! SpringViewController_Results
             
             svcViewController_Results.forceView2 = self.forceArray
             svcViewController_Results.stiffView2 = self.stiffness
@@ -187,29 +195,29 @@ class SpringViewController_Table : UITableViewController, UITableViewDataSource 
         //detail display onto next view
         if (segue.identifier == "detail") {
         
-            var selectedItem : NSManagedObject = springVar[self.tableView.indexPathForSelectedRow()!.row] as! NSManagedObject
+            let selectedItem : NSManagedObject = springVar[self.tableView.indexPathForSelectedRow!.row] as! NSManagedObject
             
-            let insertSpringVar : SpringInsertVariables = segue.destinationViewController as! SpringInsertVariables
+            let insertSpringVar : SpringInsertVariables = segue.destination as! SpringInsertVariables
             
-            var tempForce : Float = selectedItem.valueForKey("force") as! Float
-            var tempStiff : Float = selectedItem.valueForKey("stiffness") as! Float
+            let tempForce : Float = selectedItem.value(forKey: "force") as! Float
+            let tempStiff : Float = selectedItem.value(forKey: "stiffness") as! Float
             
-            var globalChecked : Bool = selectedItem.valueForKey("globalChecked") as! Bool
-            var arrowChecked : Bool = selectedItem.valueForKey("arrowChecked") as! Bool
+            let globalChecked : Bool = selectedItem.value(forKey: "globalChecked") as! Bool
+            let arrowChecked : Bool = selectedItem.value(forKey: "arrowChecked") as! Bool
             
             insertSpringVar.tempForce = tempForce
             insertSpringVar.tempStiffness = tempStiff
             insertSpringVar.tempMangObj = selectedItem
             insertSpringVar.tempChcekedGlobal = globalChecked
-            insertSpringVar.tempCount = self.tableView.indexPathForSelectedRow()!.row
+            insertSpringVar.tempCount = self.tableView.indexPathForSelectedRow!.row
             insertSpringVar.tempArrow = arrowChecked
             
-            if(self.tableView.indexPathForSelectedRow()!.row != (springVar.count-1)){
-                var tempCanCheckCheckedBox : Bool = false
+            if(self.tableView.indexPathForSelectedRow!.row != (springVar.count-1)){
+                let tempCanCheckCheckedBox : Bool = false
                 insertSpringVar.tempCanCheckCheckedBox = tempCanCheckCheckedBox
             }
             else{
-                var tempCanCheckCheckedBox : Bool = true
+                let tempCanCheckCheckedBox : Bool = true
                 insertSpringVar.tempCanCheckCheckedBox = tempCanCheckCheckedBox
             }
         }
@@ -217,7 +225,7 @@ class SpringViewController_Table : UITableViewController, UITableViewDataSource 
         //add button
         if(segue.identifier == "addSpring"){
             
-            let insertSpringVar : SpringInsertVariables = segue.destinationViewController as! SpringInsertVariables
+            let insertSpringVar : SpringInsertVariables = segue.destination as! SpringInsertVariables
             
             insertSpringVar.tempCount = springVar.count
         }

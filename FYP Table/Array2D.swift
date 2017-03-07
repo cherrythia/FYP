@@ -7,7 +7,7 @@
 //
 import UIKit
 
-public class Array2d {
+open class Array2d {
     let rows: Int, columns: Int
     var grid: [Float]
     
@@ -15,10 +15,10 @@ public class Array2d {
     {
         self.rows = rows
         self.columns = columns
-        grid = Array(count: rows * columns, repeatedValue: 0.0)
+        grid = Array(repeating: 0.0, count: rows * columns)
     }
     
-    func indexIsValidForRow(row: Int, column: Int) -> Bool
+    func indexIsValidForRow(_ row: Int, column: Int) -> Bool
     {
         return row >= 0 && row < rows && column >= 0 && column < columns
     }
