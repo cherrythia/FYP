@@ -1,6 +1,6 @@
 # FYP
 FYP projects on FEM solver
 
-Spring Elements - Bound Calculation
+- Bar and Spring Elements 
 
-Bar Elements - Calculation and Bound
+- Anyone can use it. 
